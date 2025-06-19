@@ -1,5 +1,45 @@
-// Hamburger menu functionality
+// Hero animations handler
 document.addEventListener('DOMContentLoaded', function() {
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    // Add animated class after animations complete
+    setTimeout(() => {
+      hero.classList.add('animated');
+    }, 3500); // Tiempo total de las animaciones + un pequeño buffer
+  }
+
+  // Scroll animations handler
+  const animateOnScroll = () => {
+    const elements = document.querySelectorAll([
+      '.proceso__title',
+      '.proceso__step',
+      '.testimonios-clientes__title',
+      '.testimonio-card',
+      '.about__img',
+      '.about__info',
+      '.fade-in-section',
+      '.fade-in-left',
+      '.fade-in-right'
+    ].join(','));
+
+    elements.forEach(element => {
+      const elementTop = element.getBoundingClientRect().top;
+      const elementBottom = element.getBoundingClientRect().bottom;
+      const windowHeight = window.innerHeight;
+      
+      // Elemento visible cuando su parte superior está a 20% de la ventana
+      if (elementTop < windowHeight * 0.8 && elementBottom > 0) {
+        element.classList.add('is-visible');
+      }
+    });
+  };
+
+  // Ejecutar al cargar y en cada scroll
+  animateOnScroll();
+  window.addEventListener('scroll', animateOnScroll);
+  window.addEventListener('resize', animateOnScroll);
+
+  // Hamburger menu functionality
   const navToggle = document.querySelector('.nav-toggle');
   const nav = document.querySelector('.nav');
 
