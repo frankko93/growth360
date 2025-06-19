@@ -1,3 +1,16 @@
+// Header scroll handler
+const header = document.querySelector('.header');
+const handleHeaderScroll = () => {
+  if (window.scrollY > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+};
+
+window.addEventListener('scroll', handleHeaderScroll);
+handleHeaderScroll(); // Check initial state
+
 // Hero animations handler
 document.addEventListener('DOMContentLoaded', function() {
   const hero = document.querySelector('.hero');
