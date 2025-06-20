@@ -32,7 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
       '.about__info',
       '.fade-in-section',
       '.fade-in-left',
-      '.fade-in-right'
+      '.fade-in-right',
+      '.trusted-partners',
+      '.software-partners'
     ].join(','));
 
     elements.forEach(element => {
