@@ -97,17 +97,15 @@ document.addEventListener('DOMContentLoaded', function() {
   internalLinks.forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      
       const targetId = this.getAttribute('href');
       if (targetId === '#') return;
-      
       const targetSection = document.querySelector(targetId);
       if (!targetSection) return;
-      
-      const headerOffset = 80;
+      // Calcular dinámicamente la altura del header
+      const header = document.querySelector('.header');
+      const headerOffset = header ? header.offsetHeight : 0;
       const elementPosition = targetSection.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      
       window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth'
