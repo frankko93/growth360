@@ -7,7 +7,7 @@
   --color-gray-dark: #e0e0e0;
   --color-gray-light: #fafafa;
   --color-text-dark: #1a1a1a;
-  --color-text-light: #666666;
+  --color-text-light: rgb(71, 71, 71);
   --color-accent: #8B0000;
   --color-accent-hover: #A52A2A;
   --font-heading: 'Questrial', sans-serif;
@@ -110,7 +110,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .logo__image {
-  height: 40px;
+  height: 30px;
   width: auto;
   filter: brightness(0) invert(1);
   transition: var(--transition);
@@ -418,7 +418,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   position: relative;
-  background: url('assets/fondo.jpeg') center center/cover no-repeat;
+  background: url('assets/fondo1.jpeg') center center/cover no-repeat;
   color: var(--color-white);
   text-align: center;
   padding: 120px 0 80px;
@@ -432,12 +432,20 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,0.52);
+  background: rgba(0,0,0,0.65);
   z-index: 1;
 }
 
 .hero::after {
-  content: none;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.6) 100%);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .hero__content {
@@ -445,7 +453,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 auto;
   position: relative;
   z-index: 10;
-  padding: 0 1rem;
+  /* padding: 0 1rem; */
 }
 
 .hero h1 {
@@ -454,20 +462,63 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1.5rem;
   line-height: 1.2;
   letter-spacing: -0.5px;
-  text-shadow: 0 0 20px rgba(255,255,255,0.1),
-               2px 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 0 0 25px rgba(255,255,255,0.15),
+               3px 3px 8px rgba(0,0,0,0.7);
   opacity: 0;
   animation: fadeInUp 1s ease-out 0.5s forwards;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.hero__title-small {
+  font-size: 2.8rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.hero__title-large {
+  font-size: 4.2rem;
+  font-weight: 800;
+  text-shadow: 0 0 30px rgba(255,255,255,0.2),
+               4px 4px 10px rgba(0,0,0,0.8);
+}
+
+.hero__title-underline {
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.6);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.hero__title-highlight {
+  background: rgba(139,0,0,0.6);
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.hero__title-desktop {
+  display: inline;
+}
+
+.hero__title-mobile {
+  display: none;
 }
 
 .hero__subtitle {
   font-size: 1rem;
   font-weight: 400;
   margin-bottom: 3rem;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255,255,255,0.9);
   letter-spacing: 0.5px;
   opacity: 0;
   animation: fadeInUp 1s ease-out 1s forwards;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
 }
 
 .hero__video-placeholder {
@@ -501,7 +552,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Calendly */
 .calendly {
-  background: var(--color-gray-light);
+  background: var(--color-black);
   padding: 5rem 0;
 }
 
@@ -514,7 +565,7 @@ h1, h2, h3, h4, h5, h6 {
 .calendly__content h2 {
   font-size: 2.2rem;
   font-weight: 700;
-  color: var(--color-text-dark);
+  color: var(--color-white);
   margin-bottom: 3rem;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -525,7 +576,7 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   width: 80px;
   height: 3px;
-  background: var(--color-black);
+  background: var(--color-primary);
   margin: 1.5rem auto 0;
   border-radius: 2px;
 }
@@ -573,53 +624,60 @@ h1, h2, h3, h4, h5, h6 {
 
 /* About */
 .about {
-  background: var(--color-gray-light);
+  background: var(--color-black);
   padding: 8rem 0;
 }
+
 .about__content {
   display: flex;
   align-items: center;
   gap: 5rem;
   max-width: 1000px;
 }
+
 .about__img {
-  flex: 1 1 40%;
+  flex: 0 0 210px;
+  max-width: 210px;
+  width: 210px;
 }
-.about__img-placeholder {
+
+.about__img img {
   width: 100%;
-  aspect-ratio: 1;
-  background: var(--color-white);
-  border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
   transition: var(--transition);
-  border: 1px solid var(--color-gray-dark);
-  object-fit: cover;
-  transform: scale(1.12);
+  display: block;
+  max-width: 100%;
 }
-.about__img-placeholder:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+
+.about__img img:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.25);
 }
+
 .about__info {
-  flex: 1 1 60%;
+  flex: 1 1 auto;
 }
+
 .about__info h2 {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: var(--color-text-dark);
+  color: var(--color-white);
 }
+
 .about__info p {
   font-size: 1.1rem;
   margin-bottom: 2rem;
-  color: var(--color-text-light);
+  color: rgba(255,255,255,0.8);
   line-height: 1.7;
 }
 
 /* Testimonios Clientes */
 .testimonios-clientes {
   padding: 5rem 0;
-  background: var(--color-white);
+  background: var(--color-gray-dark);
 }
 
 .testimonios-clientes__title {
@@ -639,19 +697,31 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .testimonio-card {
-  background: var(--color-gray-light);
+  background: var(--color-black);
   padding: 2.5rem;
   border-radius: 16px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   border: 1px solid var(--color-gray-dark);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
 }
 
 .testimonio-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-  background: var(--color-white);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  background: var(--color-gray-light);
+}
+
+.testimonio-card:hover .testimonio-card__texto {
+  color: var(--color-text-light);
+}
+
+.testimonio-card:hover .testimonio-card__autor {
+  color: var(--color-text-light);
+}
+
+.testimonio-card:hover .testimonio-card__autor span {
+  color: var(--color-text-dark);
 }
 
 .testimonio-card__icon {
@@ -675,13 +745,13 @@ h1, h2, h3, h4, h5, h6 {
   font-style: italic;
   margin-bottom: 1.5rem;
   line-height: 1.7;
-  color: var(--color-text-light);
+  color: rgba(255,255,255,0.8);
   font-size: 1.05rem;
 }
 
 .testimonio-card__autor {
   font-size: 0.9rem;
-  color: var(--color-text-light);
+  color: rgba(255,255,255,0.7);
 }
 
 .testimonio-card__autor span {
@@ -689,13 +759,13 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   font-size: 1.1rem;
   margin-bottom: 0.25rem;
-  color: var(--color-text-dark);
+  color: var(--color-white);
 }
 
 /* Software Partners */
 .software-partners {
-  background: var(--color-gray-light);
-  padding: 6rem 0;
+  background: var(--color-white);
+  padding: 4rem 0;
   text-align: center;
   position: relative;
   opacity: 0;
@@ -721,10 +791,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .software-partners__title {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: var(--color-text-dark);
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   position: relative;
@@ -732,9 +802,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .software-partners__logos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 3rem;
-  max-width: 1000px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  max-width: 900px;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -763,7 +833,7 @@ h1, h2, h3, h4, h5, h6 {
 .software-partners__logo-item:nth-child(4) { transition-delay: 0.4s; }
 
 .software-partners__logo {
-  height: 60px;
+  height: 50px;
   width: auto;
   display: block;
   margin: 0 auto;
@@ -785,42 +855,70 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 768px) {
   .software-partners {
-    padding: 4rem 0;
+    padding: 3rem 0;
   }
 
   .software-partners__title {
-    font-size: 1.5rem;
-    margin-bottom: 3rem;
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
   }
 
   .software-partners__logos {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .software-partners__logo {
-    max-width: 100px;
+    height: 40px;
   }
 }
 
 @media (max-width: 480px) {
+  .software-partners {
+    padding: 2rem 0;
+  }
+  
+  .software-partners__title {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+  
   .software-partners__logos {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .software-partners__logo {
+    height: 35px;
   }
 }
 
 /* Footer */
 .footer {
-  background: var(--color-black);
+  background: url('assets/fondo1.jpeg') center center/cover no-repeat;
   color: var(--color-primary);
   padding: 1.5rem 0;
   border-top: 1px solid var(--color-gray-dark);
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1;
 }
 
 .footer__content {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
 .footer__left {
@@ -893,20 +991,35 @@ h1, h2, h3, h4, h5, h6 {
   .hero h1 {
     font-size: 3rem;
   }
+  .hero__title-small {
+    font-size: 2.4rem;
+  }
+  .hero__title-large {
+    font-size: 3.6rem;
+  }
 }
 @media (max-width: 900px) {
   .hero h1 {
     font-size: 2.5rem;
+  }
+  .hero__title-small {
+    font-size: 2rem;
+  }
+  .hero__title-large {
+    font-size: 3rem;
   }
   .about__content {
     flex-direction: column;
     gap: 3rem;
     text-align: center;
   }
-  .about__img-placeholder {
-    max-width: 400px;
+  
+  .about__img {
+    max-width: 175px;
     margin: 0 auto;
+    flex: none;
   }
+
   .proceso__step,
   .testimonio-card {
     text-align: center;
@@ -957,6 +1070,18 @@ h1, h2, h3, h4, h5, h6 {
   .hero h1 {
     font-size: 2.5rem;
   }
+  .hero__title-small {
+    font-size: 1.8rem;
+  }
+  .hero__title-large {
+    font-size: 2.4rem;
+  }
+  .hero__title-desktop {
+    display: none;
+  }
+  .hero__title-mobile {
+    display: inline;
+  }
   .hero__subtitle {
     font-size: 0.9rem;
   }
@@ -965,6 +1090,13 @@ h1, h2, h3, h4, h5, h6 {
   .about__info h2 {
     font-size: 2rem;
   }
+  
+  .about__img {
+    max-width: 140px;
+    margin: 0 auto;
+    flex: none;
+  }
+  
   .btn {
     padding: 0.7em 1.5em;
   }
@@ -1036,6 +1168,10 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.3rem;
     padding: 0.4rem 0.8rem;
   }
+  
+  .logo__image {
+    height: 20px;
+  }
 }
 @media (max-width: 600px) {
   .header {
@@ -1048,12 +1184,25 @@ h1, h2, h3, h4, h5, h6 {
   .hero h1 {
     font-size: 1.8rem;
   }
+  .hero__title-small {
+    font-size: 1.4rem;
+  }
+  .hero__title-large {
+    font-size: 1.8rem;
+  }
   .hero__video-placeholder {
     height: 240px;
   }
+
   .proceso__step,
   .testimonio-card {
     padding: 2rem 1.5rem;
+  }
+  
+  .about__img {
+    max-width: 126px;
+    margin: 0 auto;
+    flex: none;
   }
 }
 
@@ -1079,9 +1228,23 @@ h1, h2, h3, h4, h5, h6 {
   .hero h1 {
     font-size: 2rem;
   }
+  .hero__title-small {
+    font-size: 1.2rem;
+  }
+  .hero__title-large {
+    font-size: 1.6rem;
+  }
   .hero__subtitle {
     font-size: 0.85rem;
   }
+  
+  .about__img {
+    max-width: 105px;
+    margin: 0 auto;
+    flex: none;
+  }
+  
+
 }
 
 /* Calendly Embebido */
@@ -1164,7 +1327,7 @@ h1, h2, h3, h4, h5, h6 {
   flex-wrap: wrap;
 }
 .proceso__step {
-  background: var(--color-gray-light);
+  background: var(--color-black);
   border-radius: 16px;
   padding: 3rem 2rem 2rem;
   flex: 1 1 300px;
@@ -1177,7 +1340,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--color-gray-dark);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
 }
 .proceso__step::before {
   content: '';
@@ -1194,8 +1357,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 .proceso__step:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-  background: var(--color-white);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  background: var(--color-gray-light);
+}
+
+.proceso__step:hover h3 {
+  color: var(--color-text-dark);
+}
+
+.proceso__step:hover p {
+  color: var(--color-text-light);
+  border-top: 1px solid var(--color-gray-dark);
+}
+
+.proceso__step:hover .proceso__icon {
+  background: var(--color-black);
+  color: var(--color-primary);
 }
 .proceso__header {
   display: flex;
@@ -1211,8 +1388,8 @@ h1, h2, h3, h4, h5, h6 {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: var(--color-black);
-  color: var(--color-primary);
+  background: var(--color-white);
+  color: var(--color-black);
   transition: var(--transition);
   box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
@@ -1222,17 +1399,17 @@ h1, h2, h3, h4, h5, h6 {
 .proceso__step h3 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-text-dark);
+  color: var(--color-white);
   line-height: 1.3;
   margin: 0.5rem 0 0;
   flex-grow: 1;
 }
 .proceso__step p {
   font-size: 1.1rem;
-  color: var(--color-text-light);
+  color: rgba(255,255,255,0.8);
   line-height: 1.6;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--color-gray-dark);
+  border-top: 1px solid rgba(255,255,255,0.2);
   margin: 0;
 }
 @media (max-width: 900px) {
@@ -1249,7 +1426,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Animaciones */
 .proceso__step,
 .testimonio-card,
-.about__img-placeholder {
+.about__img {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeIn 0.8s ease forwards;
@@ -1487,15 +1664,39 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 768px) {
   .trusted-partners {
-    padding: 3rem 0;
+    padding: 2rem 0;
+  }
+  
+  .trusted-partners__title {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
   }
   
   .trusted-partners__logos {
-    gap: 2rem;
+    gap: 1.5rem;
   }
   
   .trusted-partners__logo {
-    max-width: 120px;
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .trusted-partners {
+    padding: 1.5rem 0;
+  }
+  
+  .trusted-partners__title {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .trusted-partners__logos {
+    gap: 1rem;
+  }
+  
+  .trusted-partners__logo {
+    max-width: 80px;
   }
 }
 
