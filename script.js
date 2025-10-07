@@ -11,8 +11,50 @@ const handleHeaderScroll = () => {
 window.addEventListener('scroll', handleHeaderScroll);
 handleHeaderScroll(); // Check initial state
 
+// YouTube Player variable
+let player;
+
+// Load YouTube API
+function loadYouTubeAPI() {
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  const firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+
+// YouTube API callback
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('hero-video', {
+    height: '100%',
+    width: '100%',
+    videoId: 'F94hlDocq3M',
+    playerVars: {
+      'autoplay': 1,
+      'mute': 1,
+      'loop': 1,
+      'playlist': 'F94hlDocq3M',
+      'controls': 1, // Show controls
+      'showinfo': 0,
+      'rel': 0,
+      'modestbranding': 1,
+      'iv_load_policy': 3
+    },
+    events: {
+      'onReady': onPlayerReady
+    }
+  });
+}
+
+// Player ready callback
+function onPlayerReady(event) {
+  event.target.playVideo();
+}
+
 // Hero animations handler
 document.addEventListener('DOMContentLoaded', function() {
+  // Load YouTube API
+  loadYouTubeAPI();
+  
   const hero = document.querySelector('.hero');
   if (hero) {
     // Add animated class after animations complete
@@ -20,6 +62,29 @@ document.addEventListener('DOMContentLoaded', function() {
       hero.classList.add('animated');
     }, 3500); // Tiempo total de las animaciones + un pequeño buffer
   }
+
+  // Video sound toggle functionality
+  const soundToggle = document.getElementById('soundToggle');
+
+  if (soundToggle) {
+    soundToggle.addEventListener('click', function() {
+      if (player && player.unMute) {
+        // Unmute the video without reloading
+        player.unMute();
+        
+        // Hide the button with animation
+        soundToggle.classList.add('hidden');
+        
+        // Remove button from DOM after animation completes
+        setTimeout(() => {
+          soundToggle.style.display = 'none';
+        }, 300);
+      }
+    });
+  }
+
+  // Make the function globally available for external access
+  window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
 
   // Scroll animations handler
   const animateOnScroll = () => {

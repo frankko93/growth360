@@ -525,16 +525,71 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-white);
   color: var(--color-black);
   border-radius: 16px;
-  height: 320px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 1.1rem;
   box-shadow: 0 20px 40px rgba(0,0,0,0.2);
   transition: var(--transition);
   opacity: 0;
   animation: scaleIn 1s ease-out 1.5s forwards;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 1100px; /* Increased from 1000px */
+  margin: 0 auto;
+  padding-bottom: 45%; /* Fixed rectangular ratio - more panoramic than 16:9 */
+  height: 0;
+}
+
+.hero__video-placeholder iframe,
+.hero__video-placeholder #hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 16px;
+}
+
+/* Video Sound Toggle Button - Centered */
+.video-sound-toggle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(139, 0, 0, 0.9);
+  color: var(--color-white);
+  border: none;
+  border-radius: 60px;
+  padding: 18px 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(139, 0, 0, 0.4);
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.video-sound-toggle:hover {
+  background: rgba(139, 0, 0, 1);
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 12px 35px rgba(139, 0, 0, 0.6);
+}
+
+.video-sound-toggle i {
+  font-size: 1.3rem;
+}
+
+.video-sound-toggle.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -50%) scale(0.8);
 }
 
 .hero__video-placeholder:hover {
@@ -558,8 +613,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .calendly__content {
   text-align: center;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .calendly__content h2 {
@@ -584,18 +640,21 @@ h1, h2, h3, h4, h5, h6 {
 .calendly-container {
   background: var(--color-white);
   border-radius: 16px;
-  padding: 2rem;
+  padding: 1rem;
   box-shadow: 0 15px 35px rgba(0,0,0,0.08);
   border: 1px solid var(--color-gray-dark);
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .calendly-inline-widget {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  min-width: 320px;
+  width: 100% !important;
+  height: 700px !important;
+  min-width: 300px !important;
+  border: none;
+  display: block;
 }
 
 /* Empresas de confianza */
@@ -1030,7 +1089,16 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .calendly-container {
-    height: 600px;
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+  }
+  
+  .calendly-inline-widget {
+    height: 650px !important;
+  }
+  
+  .calendly__content {
+    padding: 0 0.5rem;
   }
 
   .footer__content {
@@ -1085,6 +1153,19 @@ h1, h2, h3, h4, h5, h6 {
   .hero__subtitle {
     font-size: 0.9rem;
   }
+  .hero__video-placeholder {
+    max-width: 900px; /* Increased from 800px */
+    padding-bottom: 45%; /* Keep same fixed ratio */
+  }
+  
+  .video-sound-toggle {
+    padding: 15px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .video-sound-toggle i {
+    font-size: 1.2rem;
+  }
   .proceso__title,
   .testimonios-clientes__title,
   .about__info h2 {
@@ -1095,6 +1176,29 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 140px;
     margin: 0 auto;
     flex: none;
+  }
+  
+  .calendly {
+    padding: 3rem 0;
+  }
+  
+  .calendly__content {
+    padding: 0 1rem;
+  }
+  
+  .calendly__content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  
+  .calendly-container {
+    padding: 0.5rem;
+    margin: 0;
+    border-radius: 12px;
+  }
+  
+  .calendly-inline-widget {
+    height: 550px !important;
   }
   
   .btn {
@@ -1191,7 +1295,21 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.8rem;
   }
   .hero__video-placeholder {
-    height: 240px;
+    max-width: 800px; /* Increased from 700px */
+    padding-bottom: 45%; /* Keep same fixed ratio */
+  }
+  
+  .video-sound-toggle {
+    padding: 12px 18px;
+    font-size: 0.85rem;
+  }
+  
+  .video-sound-toggle i {
+    font-size: 1.1rem;
+  }
+  
+  .video-sound-toggle span {
+    display: none; /* Hide text on mobile */
   }
 
   .proceso__step,
@@ -1204,13 +1322,33 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     flex: none;
   }
+  
+  .calendly {
+    padding: 2rem 0;
+  }
+  
+  .calendly__content {
+    padding: 0 0.5rem;
+  }
+  
+  .calendly__content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .calendly-container {
+    padding: 0.25rem;
+    margin: 0;
+    border-radius: 8px;
+  }
+  
+  .calendly-inline-widget {
+    height: 480px !important;
+    min-width: 280px !important;
+  }
 }
 
 @media (max-width: 480px) {
-  .calendly-container {
-    height: 400px;
-  }
-  
   .nav {
     gap: 0.5rem;
   }
@@ -1244,54 +1382,28 @@ h1, h2, h3, h4, h5, h6 {
     flex: none;
   }
   
-
-}
-
-/* Calendly Embebido */
-.calendly-section {
-  background: #fff;
-  padding: 3.5rem 0 3.5rem 0;
-  text-align: center;
-}
-.calendly-section h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  margin-bottom: 2.2rem;
-  text-transform: uppercase;
-  font-family: 'Inter', 'Poppins', Arial, sans-serif;
-}
-.calendly-container {
-  max-width: 700px;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-.calendly-container iframe {
-  width: 100%;
-  min-width: 320px;
-  height: 700px;
-  border: none;
-  background: #fff;
-  border-radius: 0;
-  display: block;
-}
-@media (max-width: 900px) {
+  .calendly {
+    padding: 1.5rem 0;
+  }
+  
+  .calendly__content {
+    padding: 0 0.5rem;
+  }
+  
+  .calendly__content h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
   .calendly-container {
-    max-width: 100%;
+    padding: 0.25rem;
+    margin: 0 0.25rem;
+    border-radius: 6px;
   }
-  .calendly-container iframe {
-    height: 600px;
-  }
-  .calendly-section h2 {
-    font-size: 1.15rem;
-  }
-}
-@media (max-width: 600px) {
-  .calendly-container iframe {
-    height: 480px;
-  }
-  .calendly-section {
-    padding: 2rem 0 2rem 0;
+  
+  .calendly-inline-widget {
+    height: 400px !important;
+    min-width: 260px !important;
   }
 }
 
