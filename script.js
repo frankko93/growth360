@@ -11,49 +11,59 @@ const handleHeaderScroll = () => {
 window.addEventListener('scroll', handleHeaderScroll);
 handleHeaderScroll(); // Check initial state
 
-// YouTube Player variable
+// Wistia Player variable
 let player;
 
-// Load YouTube API
-function loadYouTubeAPI() {
-  const tag = document.createElement('script');
-  tag.src = 'https://www.youtube.com/iframe_api';
-  const firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+// Load Wistia player
+function loadWistiaPlayer() {
+  // Load Wistia API script first
+  const script = document.createElement('script');
+  script.src = 'https://fast.wistia.net/assets/external/E-v1.js';
+  script.async = true;
+  document.head.appendChild(script);
+  
+  // Initialize Wistia player after script loads
+  script.onload = function() {
+    initWistiaPlayer();
+  };
 }
 
-// YouTube API callback
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('hero-video', {
-    height: '100%',
-    width: '100%',
-    videoId: 'F94hlDocq3M',
-    playerVars: {
-      'autoplay': 1,
-      'mute': 1,
-      'loop': 1,
-      'playlist': 'F94hlDocq3M',
-      'controls': 1, // Show controls
-      'showinfo': 0,
-      'rel': 0,
-      'modestbranding': 1,
-      'iv_load_policy': 3
-    },
-    events: {
-      'onReady': onPlayerReady
-    }
-  });
-}
-
-// Player ready callback
-function onPlayerReady(event) {
-  event.target.playVideo();
+// Initialize Wistia player controls
+function initWistiaPlayer() {
+  const videoContainer = document.getElementById('hero-video');
+  if (videoContainer && window.Wistia) {
+    // Create Wistia embed using JavaScript API
+    videoContainer.innerHTML = `
+      <div class="wistia_embed wistia_async_v0svdbrhtl" 
+           style="height:100%;width:100%;" 
+           data-wistia-video-id="v0svdbrhtl"
+           data-wistia-autoplay="true"
+           data-wistia-muted="true"
+           data-wistia-controls="true"
+           data-wistia-playbar="true"
+           data-wistia-volume="true">
+      </div>
+    `;
+    
+    // Wait for Wistia to process the embed
+    setTimeout(() => {
+      player = window.Wistia.api('v0svdbrhtl');
+      if (player) {
+        // Ensure the video starts playing muted
+        player.mute();
+        player.play();
+      }
+    }, 1000);
+  } else if (!window.Wistia) {
+    // Retry after a short delay if Wistia API isn't ready yet
+    setTimeout(initWistiaPlayer, 100);
+  }
 }
 
 // Hero animations handler
 document.addEventListener('DOMContentLoaded', function() {
-  // Load YouTube API
-  loadYouTubeAPI();
+  // Load Wistia Player
+  loadWistiaPlayer();
   
   const hero = document.querySelector('.hero');
   if (hero) {
@@ -68,23 +78,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (soundToggle) {
     soundToggle.addEventListener('click', function() {
-      if (player && player.unMute) {
-        // Unmute the video without reloading
-        player.unMute();
+      // Function to try unmuting
+      const tryUnmute = () => {
+        // First try to get player if we don't have it yet
+        if (!player && window.Wistia) {
+          player = window.Wistia.api('v0svdbrhtl');
+        }
         
-        // Hide the button with animation
-        soundToggle.classList.add('hidden');
-        
-        // Remove button from DOM after animation completes
+        if (player && typeof player.unmute === 'function') {
+          // Unmute the Wistia video
+          player.unmute();
+          
+          // Hide the button with animation
+          soundToggle.classList.add('hidden');
+          
+          // Remove button from DOM after animation completes
+          setTimeout(() => {
+            soundToggle.style.display = 'none';
+          }, 300);
+          
+          return true;
+        }
+        return false;
+      };
+      
+      // Try immediately
+      if (!tryUnmute()) {
+        // If it fails, wait a bit and try again
         setTimeout(() => {
-          soundToggle.style.display = 'none';
-        }, 300);
+          if (!tryUnmute()) {
+            console.log('Could not unmute Wistia player');
+          }
+        }, 500);
       }
     });
   }
 
-  // Make the function globally available for external access
-  window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
 
   // Scroll animations handler
   const animateOnScroll = () => {
